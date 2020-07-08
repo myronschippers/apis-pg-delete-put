@@ -51,7 +51,7 @@ router.delete('/:id', (req, res) => {
     });
 });
 
-router.put('/:id', (req, res) => {
+router.put('/rank/:id', (req, res) => {
   const id = req.params.id;
   const songData = req.body;
 
