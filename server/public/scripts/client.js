@@ -29,9 +29,20 @@ function clickDeleteMusic() {
 
 function clickEditRank() {
   console.log('EDIT RANK');
+  const $newRank = $(this).parent()
+    .siblings('.js-rank')
+    .children('.js-new-rank');
+
+  if ($newRank.length > 0) {
+    const id = $(this).data('idSong');
+    const newRankValue = $newRank.val();
+    updateRank(id, newRankValue);
+    return;
+  }
+
   $(this).parent()
     .siblings('.js-rank')
-    .html(`<input type="number" placeholder="new rank" />`);
+    .html(`<input type="number" placeholder="new rank" class="js-new-rank" />`);
   $(this).text('SAVE');
 }
 
@@ -75,6 +86,11 @@ function deleteSong(songId) {
     console.log('err: ', err);
     alert('Stuff broke!!!');
   })
+}
+
+function updateRank(id, rank) {
+  console.log('RANK SAVE - id:', id);
+  console.log('RANK SAVE - rank:', rank);
 }
 
 //
