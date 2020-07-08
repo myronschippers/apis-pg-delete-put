@@ -36,4 +36,19 @@ router.post('/', (req, res) => {
     });
 });
 
+// delete a song from my DB
+router.delete('/:id', (req, res) => {
+  const id = req.params.id;
+  const queryText = `DELETE FROM "songs" WHERE "id" = $1;`
+
+  pool.query(queryText, [id])
+    .then((dbResponse) => {
+      res.sendStatus(200);
+    })
+    .catch((err) => {
+      console.log('error', err);
+      res.sendStatus(500);
+    });
+});
+
 module.exports = router;
