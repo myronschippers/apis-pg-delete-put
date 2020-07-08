@@ -51,4 +51,23 @@ router.delete('/:id', (req, res) => {
     });
 });
 
+router.put('/:id', (req, res) => {
+  const id = req.params.id;
+  const songData = req.body;
+
+  const queryText = `UPDATE "songs" SET "rank" = $1 WHERE "id" = $2;`;
+
+  pool.query(queryText, [
+    songData.rank,
+    id
+  ])
+  .then((dbResponse) => {
+    res.sendStatus(200);
+  })
+  .catch((err) => {
+    console.log('error', err);
+    res.sendStatus(500);
+  });
+});
+
 module.exports = router;
