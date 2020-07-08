@@ -91,6 +91,20 @@ function deleteSong(songId) {
 function updateRank(id, rank) {
   console.log('RANK SAVE - id:', id);
   console.log('RANK SAVE - rank:', rank);
+  $.ajax({
+    type: 'PUT',
+    url: `/api/music/rank/${id}`,
+    data: {
+      rank
+    }
+  })
+  .then((response) => {
+    getMusicData();
+  })
+  .catch((err) => {
+    console.log('err: ', err);
+    alert('Stuff broke!!!');
+  });
 }
 
 //
