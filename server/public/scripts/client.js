@@ -3,6 +3,7 @@ $(document).ready(onReady);
 function onReady() {
   getMusicData();
   $('.js-add').on('click', clickAddMusic);
+  $('.js-musicTableBody').on('click', '.js-btn-delete', clickDeleteMusic);
 }
 
 //
@@ -18,6 +19,11 @@ function clickAddMusic() {
   };
 
   postMusicData(payloadObject);
+}
+
+function clickDeleteMusic() {
+  const id = $(this).data('idSong');
+  deleteSong(id);
 }
 
 //
@@ -48,6 +54,20 @@ function postMusicData(musicData) {
   });
 }
 
+function deleteSong(songId) {
+  $.ajax({
+    type: 'DELETE',
+    url: `/api/music/${songId}`
+  })
+  .then((response) => {
+    getMusicData();
+  })
+  .catch((err) => {
+    console.log('err: ', err);
+    alert('Stuff broke!!!');
+  })
+}
+
 //
 // DOM Manipulation
 // ------------------------------
@@ -69,6 +89,11 @@ function render(musicLibrary) {
         <td>${musicItem.track}</td>
         <td>${musicItem.rank}</td>
         <td>${musicItem.published}</td>
+        <td>
+          <button data-id-song="${musicItem.id}" class="js-btn-delete">
+            DELETE
+          </button>
+        </td>
       </tr>
     `);
   }
