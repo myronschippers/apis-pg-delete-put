@@ -4,6 +4,7 @@ function onReady() {
   getMusicData();
   $('.js-add').on('click', clickAddMusic);
   $('.js-musicTableBody').on('click', '.js-btn-delete', clickDeleteMusic);
+  $('.js-musicTableBody').on('click', '.js-btn-edit', clickEditRank);
 }
 
 //
@@ -24,6 +25,10 @@ function clickAddMusic() {
 function clickDeleteMusic() {
   const id = $(this).data('idSong');
   deleteSong(id);
+}
+
+function clickEditRank() {
+  console.log('EDIT RANK');
 }
 
 //
@@ -87,11 +92,14 @@ function render(musicLibrary) {
       <tr>
         <td>${musicItem.artist}</td>
         <td>${musicItem.track}</td>
-        <td>${musicItem.rank}</td>
+        <td class="js-rank">${musicItem.rank}</td>
         <td>${musicItem.published}</td>
         <td>
           <button data-id-song="${musicItem.id}" class="js-btn-delete">
             DELETE
+          </button>
+          <button data-id-song="${musicItem.id}" class="js-btn-edit">
+            EDIT
           </button>
         </td>
       </tr>
